@@ -62,7 +62,13 @@ export class AuthService {
       )
       .json({ statusCode: 201, message: 'Your are logged in successfully' });
   }
-  async logOut() {
-    return `This action returns all auth`;
+  async logOut(user: User, res: Response) {
+    user.currentTokenId = null;
+    await user.save();
+    res.clearCookie('jwt', { secure: false, httpOnly: true });
+    return res.json({
+      status: 200,
+      message: 'Your are logged out successfully',
+    });
   }
 }
