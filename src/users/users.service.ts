@@ -35,27 +35,13 @@ export class UsersService {
     return await this.userModel.findOne(options);
   }
 
-  async getMe(id: string) {
-    const user = await this.userModel.findById(id);
-    return user;
-  }
-
-  async update(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.userModel.findById(id, { removed: false });
+  async update(user: User, updateUserDto: UpdateUserDto) {
     Object.assign(user, updateUserDto);
     return await user.save();
   }
 
-  async remove(id: string) {
-    const user = await this.userModel.findById(id, { removed: false });
-    ifNoData(user, 'User');
+  async remove(user: User) {
     user.removed = true;
-    return await user.save();
-  }
-
-  async updateCreditCard(id: string, updateCreditCardDto: UpdateCreditCardDto) {
-    const user = await this.userModel.findById(id);
-    Object.assign(user.creditCard, updateCreditCardDto);
     return await user.save();
   }
 }
