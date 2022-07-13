@@ -44,4 +44,9 @@ export class UsersService {
     user.removed = true;
     return await user.save();
   }
+
+  async updateCreditCard(user: User, updateCreditCardDto: UpdateCreditCardDto) {
+    Object.assign(user.creditCard, updateCreditCardDto);
+    return await user.save();
+  }
 }
