@@ -12,6 +12,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserObj } from 'src/decorators/userobj.decorator';
+import { User } from './schemas/users.schema';
 
 @Controller('users')
 export class UsersController {
@@ -23,7 +25,6 @@ export class UsersController {
   }
 
   @Get()
-  @UseGuards(AuthGuard('jwt'))
   findAll() {
     return this.usersService.findAll();
   }
@@ -33,13 +34,20 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+  @Get('me')
+  @UseGuards(AuthGuard('jwt'))
+  getMe(@UserObj() user: User) {
+    return user;
+  }
+  @Patch()
+  @UseGuards(AuthGuard('jwt'))
+  update(@UserObj() user: User, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(user, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+  @Delete()
+  @UseGuards(AuthGuard('jwt'))
+  remove(@UserObj() user: User) {
+    return this.usersService.remove(user);
   }
 }
