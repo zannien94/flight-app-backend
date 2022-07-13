@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { CardSchema, Card } from './card.schema';
+import { Flight } from '../../flights/schemas/flight.schema';
 
 @Schema({
   minimize: false,
@@ -27,6 +28,12 @@ export class User extends mongoose.Document {
   currentTokenId: string;
   @Prop({ required: true, default: false })
   removed: boolean;
+  @Prop()
+  emailConfirmation: mongoose.Schema.Types.Mixed;
+  @Prop({ type: CardSchema, default: {} })
+  creditCard: Card;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Flight' })
+  flights: [Flight];
 
   authenticate: (password: string) => Promise<boolean>;
 }

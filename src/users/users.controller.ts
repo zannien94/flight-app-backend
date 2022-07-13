@@ -14,6 +14,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserObj } from 'src/decorators/userobj.decorator';
 import { User } from './schemas/users.schema';
+import { UpdateCreditCardDto } from './dto/update-card.dto';
 
 @Controller('users')
 export class UsersController {
@@ -29,16 +30,26 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
-  }
-
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
   getMe(@UserObj() user: User) {
     return user;
   }
+
+  @Patch('card')
+  @UseGuards(AuthGuard('jwt'))
+  updateCreditCard(
+    @UserObj() user: User,
+    @Body() updateCreditCardDto: UpdateCreditCardDto,
+  ) {
+    return this.usersService.updateCreditCard(user, updateCreditCardDto);
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.usersService.findOne(id);
+  }
+
   @Patch()
   @UseGuards(AuthGuard('jwt'))
   update(@UserObj() user: User, @Body() updateUserDto: UpdateUserDto) {
