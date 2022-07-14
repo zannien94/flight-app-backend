@@ -91,7 +91,7 @@ export class FlightsService {
       (userId) => userId.toString() === user._id.toString(),
     );
     user.flights = user.flights.filter(
-      (flightId) => flightId.toString() === flight._id.toString(),
+      (flightId) => flightId.toString() !== flight._id.toString(),
     );
     await Promise.all([user.save(), flight.save()]);
     return res.json({
