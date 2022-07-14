@@ -7,17 +7,21 @@ import { REGEXES } from 'src/utils/consts';
   timestamps: true,
   toJSON: {
     virtuals: true,
+    transform(doc, ret, options) {
+      delete ret._id;
+      return ret;
+    },
   },
   toObject: {
     virtuals: true,
   },
 })
 export class Card extends mongoose.Document {
-  @Prop({ required: true, match: REGEXES.CARD_NUMBER })
+  @Prop({ match: REGEXES.CARD_NUMBER })
   number: string;
-  @Prop({ required: true, match: REGEXES.EXPIRATION_DATE })
+  @Prop({ match: REGEXES.EXPIRATION_DATE })
   expirationDate: string;
-  @Prop({ required: true, match: REGEXES.CVC })
+  @Prop({ match: REGEXES.CVC })
   cvc: string;
 
   completed: boolean;

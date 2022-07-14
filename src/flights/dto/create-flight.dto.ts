@@ -31,4 +31,16 @@ export class CreateFlightDto {
   @IsString()
   @IsNotEmpty()
   fromAirport: string;
+  @IsString()
+  @IsNotEmpty()
+  toIata: string;
+  @IsString()
+  @IsNotEmpty()
+  fromIata: string;
+  @IsNumber()
+  @IsNotEmpty()
+  fromHour: string;
+  @IsNumber()
+  @IsNotEmpty()
+  toHour: string;
 }

@@ -13,15 +13,6 @@ interface findFlight {
   fromDate: string;
 }
 
-const uniqueIdsValues = (
-  arrayToConvert: Array<Types.ObjectId>,
-): Array<Types.ObjectId> => {
-  const setReservations = [
-    ...new Set(arrayToConvert.map((userId) => userId.toString())),
-  ];
-  return setReservations.map((userId) => new Types.ObjectId(userId));
-};
-
 @Injectable()
 export class FlightsService {
   constructor(@InjectModel(Flight.name) private flightModel: Model<Flight>) {}
@@ -73,10 +64,14 @@ export class FlightsService {
     if (!flight) {
       flight = await this.create(createFlightDto);
     }
+    const reservationIndex = flight.reservations.findIndex(
+      (userId) => userId.toString() === user._id.toString(),
+    );
+    if (reservationIndex !== -1) {
+      throw new ForbiddenException('You already booked that flight');
+    }
     flight.reservations.push(user._id);
-    flight.reservations = uniqueIdsValues(flight.reservations);
     user.flights.push(flight._id);
-    user.flights = uniqueIdsValues(user.flights);
     await Promise.all([user.save(), flight.save()]);
     return res.json({
       status: 200,
