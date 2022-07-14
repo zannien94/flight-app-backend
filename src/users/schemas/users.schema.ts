@@ -10,6 +10,7 @@ import { CardSchema, Card } from './card.schema';
     virtuals: true,
     transform(doc, ret, options) {
       delete ret.passwordHash;
+      delete ret._id;
       return ret;
     },
   },
