@@ -13,7 +13,13 @@ async function bootstrap() {
   // app.use(csurf());
   app.enableCors({
     credentials: true,
-    origin: ['http://localhost:3001', 'http://localhost:3000'],
+    origin: [
+      'http://localhost:3001',
+      'http://localhost:3001/',
+      'http://localhost:3000',
+      'http://localhost:3000/',
+      ,
+    ],
   });
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new GlobalExceptionFilter());
