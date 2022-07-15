@@ -18,6 +18,6 @@ export const jwtCookieConfig = (expires: Date): JwtCookieConfig => {
     expires,
     httpOnly: true,
     secure,
-    //   sameSite: 'None',
+    sameSite: SameSite.NONE,
   };
 };
