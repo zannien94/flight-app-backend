@@ -1,3 +1,12 @@
+### AUTHORS:
+
+    Żaneta Niezabitowska - zanetaniezabitowska94@gmail.com FE + BE
+    Jakub Kos - kubakos686@gmaill.com  BE
+
+# DEMO
+
+https://app-flights-frontend2022.netlify.app/
+
 # Getting Started APP
 
 https://github.com/zannien94/flight-app-backend
@@ -20,8 +29,3 @@ add .env to project "main folder"
 ## FLIGHT APP
 
     Application for searching in flight booking
-
-### AUTHORS:
-
-    Żaneta Niezabitowska - zanetaniezabitowska94@gmail.com
-    Jakub Kos - kubakos686@gmaill.com
