@@ -11,6 +11,7 @@ import { CardSchema, Card } from './card.schema';
     transform(doc, ret, options) {
       delete ret.passwordHash;
       delete ret._id;
+      delete ret.currentTokenId;
       return ret;
     },
   },

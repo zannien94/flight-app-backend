@@ -18,7 +18,8 @@ async function bootstrap() {
       'http://localhost:3001/',
       'http://localhost:3000',
       'http://localhost:3000/',
-      ,
+      'https://app-flights-frontend2022.netlify.app/',
+      'https://app-flights-frontend2022.netlify.app',
     ],
   });
   app.useGlobalPipes(new ValidationPipe());
